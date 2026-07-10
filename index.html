@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta — Site para Psicólogos | Agência Ângelo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sage:   #7A9E8E;
+    --sage2:  #5E8474;
+    --creme:  #FAF7F2;
+    --creme2: #F0EBE3;
+    --creme3: #E4DDD4;
+    --terra:  #C4785A;
+    --terra2: #D4896A;
+    --dark:   #1A1714;
+    --dark2:  #242018;
+    --dark3:  #2E2A22;
+    --dark4:  #38332A;
+    --texto:  #2A2420;
+    --suave:  #7A6E65;
+    --lj:     #E8601A;
+    --lj2:    #F07A35;
+    --tw:     rgba(255,255,255,0.9);
+    --ts:     rgba(255,255,255,0.42);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--creme);
+    color: var(--texto);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(26,23,20,0.96); backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 0 56px; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-size: 14px; font-weight: 600; color: white; text-decoration: none; }
+  .nav-logo span { color: var(--lj); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.32); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--lj); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; background: var(--dark);
+    display: flex; align-items: center;
+    padding: 120px 56px 80px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 70% 30%, rgba(122,158,142,0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 20% 80%, rgba(196,120,90,0.08) 0%, transparent 40%);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .hero-inner { max-width: 960px; width: 100%; position: relative; z-index: 2; }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--sage);
+    margin-bottom: 24px; opacity: 0; animation: up 0.7s 0.1s forwards;
+  }
+  .hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--sage); }
+
+  .hero-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(46px, 7.5vw, 88px);
+    font-weight: 700; line-height: 1.0;
+    color: white; margin-bottom: 24px;
+    opacity: 0; animation: up 0.7s 0.25s forwards;
+  }
+  .hero-h1 em { font-style: italic; color: var(--terra2); font-weight: 400; }
+
+  .hero-sub {
+    font-size: 16px; font-weight: 300; color: var(--ts);
+    max-width: 500px; line-height: 1.85; margin-bottom: 52px;
+    opacity: 0; animation: up 0.7s 0.4s forwards;
+  }
+
+  .hero-chips {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 52px;
+    opacity: 0; animation: up 0.7s 0.52s forwards;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.55); font-size: 12px; font-weight: 500;
+    padding: 7px 14px; border-radius: 40px;
+  }
+
+  .hero-meta {
+    display: flex; gap: 0; border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 30px; flex-wrap: wrap;
+    opacity: 0; animation: up 0.7s 0.64s forwards;
+  }
+  .hm { padding-right: 32px; margin-right: 32px; border-right: 1px solid rgba(255,255,255,0.08); }
+  .hm:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+  .hm label { display: block; font-size: 9px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.22); margin-bottom: 4px; }
+  .hm span { font-size: 14px; color: var(--tw); font-weight: 400; }
+
+  @keyframes up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── LAYOUT ── */
+  .sec { padding: 88px 56px; }
+  .sec-inner { max-width: 960px; margin: 0 auto; }
+  .sec-dark { background: var(--dark2); }
+  .sec-dark3 { background: var(--dark3); }
+  .sec-creme2 { background: var(--creme2); }
+  .divisor { border: none; border-top: 1px solid var(--creme3); }
+
+  /* ── HEADER ── */
+  .sh { display: flex; align-items: center; gap: 14px; margin-bottom: 44px; }
+  .sh-n { font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; color: var(--lj); background: rgba(232,96,26,0.07); border: 1px solid rgba(232,96,26,0.18); padding: 4px 10px; border-radius: 4px; flex-shrink: 0; }
+  .sh-t { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--texto); line-height: 1; }
+  .sec-dark .sh-t, .sec-dark3 .sh-t { color: white; }
+  .sec-dark .sh-n, .sec-dark3 .sh-n { background: rgba(232,96,26,0.12); border-color: rgba(232,96,26,0.28); }
+
+  /* ── O QUE INCLUI ── */
+  .incluso-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .inc-card { background: white; border: 1px solid var(--creme3); border-radius: 12px; padding: 26px 24px; display: flex; gap: 16px; align-items: flex-start; transition: transform 0.2s, box-shadow 0.2s; }
+  .inc-card:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,0,0,0.07); }
+  .inc-icon { font-size: 26px; flex-shrink: 0; }
+  .inc-txt h4 { font-size: 14px; font-weight: 600; color: var(--texto); margin-bottom: 5px; }
+  .inc-txt p  { font-size: 12.5px; color: var(--suave); line-height: 1.65; }
+
+  /* ── PORTFÓLIO ── */
+  .port-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 8px; }
+  .port-card { background: var(--dark4); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; overflow: hidden; transition: transform 0.2s; }
+  .port-card:hover { transform: translateY(-3px); }
+  .port-bar { background: var(--dark3); padding: 8px 14px; display: flex; align-items: center; gap: 8px; }
+  .port-dots { display: flex; gap: 5px; }
+  .port-dots span { width: 8px; height: 8px; border-radius: 50%; display: block; }
+  .port-dots span:nth-child(1) { background: #FF5F57; }
+  .port-dots span:nth-child(2) { background: #FFBD2E; }
+  .port-dots span:nth-child(3) { background: #28CA41; }
+  .port-url { font-size: 10px; color: rgba(255,255,255,0.3); font-family: monospace; flex: 1; text-align: center; }
+  .port-body { padding: 18px 20px; }
+  .port-body h4 { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: white; margin-bottom: 4px; }
+  .port-body p { font-size: 12.5px; color: var(--ts); line-height: 1.6; margin-bottom: 12px; }
+  .port-link { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--terra2); text-decoration: none; border-bottom: 1px solid rgba(196,120,90,0.3); padding-bottom: 2px; transition: color 0.2s; }
+  .port-link:hover { color: var(--terra); }
+
+  /* ── INVESTIMENTO ── */
+  /* Valor principal */
+  .inv-principal {
+    background: var(--dark3); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px; padding: 40px 36px; position: relative; overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .inv-principal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--sage2), var(--sage)); }
+
+  .inv-principal-inner { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: start; }
+
+  .inv-badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); background: rgba(122,158,142,0.1); border: 1px solid rgba(122,158,142,0.25); padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; }
+  .inv-titulo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: white; margin-bottom: 6px; line-height: 1.2; }
+  .inv-titulo em { font-style: italic; color: var(--sage); }
+  .inv-desc { font-size: 13.5px; color: var(--ts); line-height: 1.75; margin-bottom: 24px; max-width: 480px; }
+
+  .inv-ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .inv-ul li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.52); line-height: 1.5; }
+  .inv-ul li::before { content: '✓'; color: var(--sage); font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+  .inv-price-col { display: flex; flex-direction: column; gap: 12px; min-width: 200px; }
+
+  .price-row {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px; padding: 16px 18px;
+  }
+  .price-row label { display: block; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 6px; }
+  .price-row .v { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: white; line-height: 1; }
+  .price-row .v sup { font-size: 14px; color: var(--lj); vertical-align: super; margin-right: 2px; }
+  .price-row .obs { font-size: 11px; color: rgba(255,255,255,0.28); margin-top: 4px; }
+  .price-row.pix { border-color: rgba(122,158,142,0.3); background: rgba(122,158,142,0.06); }
+  .price-row.pix label { color: var(--sage); }
+  .price-row.pix .v { color: white; }
+
+  /* CTAs do investimento */
+  .inv-ctas { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .inv-cta { display: flex; align-items: center; justify-content: center; gap: 7px; background: rgba(122,158,142,0.1); border: 1px solid rgba(122,158,142,0.28); color: var(--sage); font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 11px 16px; border-radius: 7px; text-decoration: none; transition: background 0.2s; text-align: center; }
+  .inv-cta:hover { background: rgba(122,158,142,0.18); }
+  .inv-cta.full { background: var(--lj); border-color: var(--lj); color: white; }
+  .inv-cta.full:hover { background: var(--lj2); border-color: var(--lj2); }
+
+  /* Mensalidade */
+  .mensal-box {
+    background: var(--dark4); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px; padding: 28px 32px;
+    display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+    margin-bottom: 16px;
+  }
+  .mensal-badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terra2); background: rgba(196,120,90,0.1); border: 1px solid rgba(196,120,90,0.25); padding: 3px 10px; border-radius: 20px; margin-bottom: 10px; }
+  .mensal-box h4 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: white; margin-bottom: 6px; }
+  .mensal-box p { font-size: 13px; color: var(--ts); line-height: 1.7; }
+  .mensal-preco { text-align: right; }
+  .mensal-preco .v { font-family: 'Playfair Display', serif; font-size: 50px; font-weight: 700; color: white; line-height: 1; }
+  .mensal-preco .v sup { font-size: 18px; color: var(--terra2); vertical-align: super; margin-right: 2px; }
+  .mensal-preco .obs { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 4px; }
+
+
+
+  /* Adicional vídeo */
+  .video-box {
+    background: rgba(196,120,90,0.06); border: 1px solid rgba(196,120,90,0.18);
+    border-radius: 12px; padding: 28px 32px;
+    display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+  }
+  .video-badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terra2); background: rgba(196,120,90,0.1); border: 1px solid rgba(196,120,90,0.25); padding: 3px 10px; border-radius: 20px; margin-bottom: 10px; }
+  .video-box h4 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: white; margin-bottom: 6px; }
+  .video-box p  { font-size: 13px; color: var(--ts); line-height: 1.7; margin-bottom: 14px; }
+  .video-ctas { display: flex; flex-direction: column; gap: 8px; }
+  .video-cta { display: inline-flex; align-items: center; justify-content: center; gap: 7px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 16px; border-radius: 7px; text-decoration: none; transition: background 0.2s; }
+  .video-cta.solo { background: rgba(196,120,90,0.1); border: 1px solid rgba(196,120,90,0.3); color: var(--terra2); }
+  .video-cta.solo:hover { background: rgba(196,120,90,0.2); }
+  .video-cta.combo { background: var(--lj); border: 1px solid var(--lj); color: white; }
+  .video-cta.combo:hover { background: var(--lj2); border-color: var(--lj2); }
+  .video-preco { text-align: right; }
+  .video-preco .v { font-family: 'Playfair Display', serif; font-size: 50px; font-weight: 700; color: var(--terra2); line-height: 1; }
+  .video-preco .v sup { font-size: 18px; vertical-align: super; margin-right: 2px; }
+  .video-preco .obs { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 4px; }
+
+  /* ── PROCESSO ── */
+  .processo { display: flex; flex-direction: column; position: relative; }
+  .processo::before { content: ''; position: absolute; left: 19px; top: 20px; bottom: 20px; width: 1px; background: var(--creme3); }
+  .proc-row { display: grid; grid-template-columns: 40px 1fr; gap: 24px; padding-bottom: 28px; }
+  .proc-dot { width: 40px; height: 40px; border-radius: 50%; background: var(--creme); border: 2px solid rgba(122,158,142,0.4); color: var(--sage2); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; position: relative; z-index: 1; }
+  .proc-body { padding-top: 8px; }
+  .proc-h { font-size: 15px; font-weight: 600; color: var(--texto); margin-bottom: 4px; }
+  .proc-p { font-size: 13.5px; color: var(--suave); line-height: 1.7; max-width: 560px; }
+
+  /* ── NOTA CFP ── */
+  .cfp-box { background: rgba(122,158,142,0.06); border: 1px solid rgba(122,158,142,0.18); border-radius: 10px; padding: 18px 22px; display: flex; gap: 14px; align-items: flex-start; }
+  .cfp-box .icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .cfp-box p { font-size: 13.5px; color: var(--suave); line-height: 1.7; }
+  .cfp-box p strong { color: var(--texto); font-weight: 600; }
+
+  /* ── CTA FINAL ── */
+  .cta-sec { background: var(--dark); padding: 96px 56px; position: relative; overflow: hidden; }
+  .cta-sec::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 50%, rgba(122,158,142,0.08) 0%, transparent 55%); pointer-events: none; }
+  .cta-inner { max-width: 960px; margin: 0 auto; position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center; }
+  .cta-h { font-family: 'Playfair Display', serif; font-size: 44px; font-weight: 700; color: white; line-height: 1.1; margin-bottom: 12px; }
+  .cta-h em { font-style: italic; color: var(--terra2); }
+  .cta-p { font-size: 14.5px; font-weight: 300; color: var(--ts); line-height: 1.8; max-width: 460px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--lj); color: white; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 16px 28px; border-radius: 8px; text-decoration: none; white-space: nowrap; flex-shrink: 0; transition: background 0.2s, transform 0.2s; }
+  .cta-btn:hover { background: var(--lj2); transform: translateY(-2px); }
+
+  footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.05); padding: 34px 56px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+  .ft-logo { font-size: 14px; font-weight: 600; color: white; }
+  .ft-logo span { color: var(--lj); }
+  .ft-info { font-size: 12px; color: rgba(255,255,255,0.26); text-align: right; line-height: 1.9; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; } .nav-links { display: none; }
+    .hero, .sec, .cta-sec { padding: 80px 24px 60px; } .hero { padding-top: 100px; }
+    .incluso-grid, .port-grid { grid-template-columns: 1fr; }
+    .inv-principal-inner, .mensal-box, .video-box, .cta-inner { grid-template-columns: 1fr; gap: 24px; }
+    .mensal-preco, .video-preco { text-align: left; }
+    .hm { border-right: none; margin-right: 0; padding-right: 0; }
+    footer { padding: 28px 24px; } .ft-info { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"><span>Agência</span> Ângelo</a>
+  <ul class="nav-links">
+    <li><a href="#incluso">O que inclui</a></li>
+    <li><a href="#portfolio">Portfólio</a></li>
+    <li><a href="#investimento">Investimento</a></li>
+    <li><a href="#processo">Processo</a></li>
+    <li><a href="https://instagram.com/aagenciaangelo" target="_blank" style="color:var(--lj)!important;">@aagenciaangelo</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Proposta de Desenvolvimento Web · Psicologia</div>
+    <h1 class="hero-h1">
+      Seu site,<br>sua <em>presença</em><br>profissional.
+    </h1>
+    <p class="hero-sub">Uma landing page ou site completo para psicólogos — com design cuidadoso, texto estratégico e total conformidade com o Código de Ética do CFP.</p>
+
+    <div class="hero-chips">
+      <div class="chip">🎨 Design exclusivo</div>
+      <div class="chip">✍️ Copywriting incluso</div>
+      <div class="chip">✅ Conformidade CFP</div>
+      <div class="chip">🌐 Domínio www.seunome.com.br</div>
+    </div>
+
+    <div class="hero-meta">
+      <div class="hm"><label>Preparado para</label><span>Marcos</span></div>
+      <div class="hm"><label>Preparado por</label><span>Adson Ângelo</span></div>
+      <div class="hm"><label>Especialidade</label><span>Sites para psicólogos</span></div>
+      <div class="hm"><label>Data</label><span>Julho de 2026</span></div>
+      <div class="hm"><label>Validade</label><span>15 dias</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE INCLUI -->
+<section id="incluso" class="sec">
+  <div class="sec-inner">
+    <div class="sh"><span class="sh-n">01</span><h2 class="sh-t">O que está incluso</h2></div>
+    <p style="font-size:15px;font-weight:300;color:var(--suave);max-width:620px;line-height:1.85;margin-bottom:40px;">Tudo o que você precisa para ter uma presença digital profissional, do planejamento à publicação — sem precisar se preocupar com a parte técnica.</p>
+    <div class="incluso-grid">
+      <div class="inc-card">
+        <div class="inc-icon">🎨</div>
+        <div class="inc-txt">
+          <h4>Estrutura e design do site</h4>
+          <p>Layout exclusivo criado para você — com identidade visual, paleta de cores e tipografia que refletem a sua abordagem e personalidade profissional.</p>
+        </div>
+      </div>
+      <div class="inc-card">
+        <div class="inc-icon">✍️</div>
+        <div class="inc-txt">
+          <h4>Copywriting — texto do site</h4>
+          <p>Produção dos textos de todo o site, com linguagem humanizada e estratégica, dentro das normas de divulgação do Código de Ética do CFP.</p>
+        </div>
+      </div>
+      <div class="inc-card">
+        <div class="inc-icon">✅</div>
+        <div class="inc-txt">
+          <h4>Conformidade com o CFP</h4>
+          <p>Todo o conteúdo respeita as diretrizes do Conselho Federal de Psicologia para divulgação profissional.</p>
+        </div>
+      </div>
+      <div class="inc-card">
+        <div class="inc-icon">🌐</div>
+        <div class="inc-txt">
+          <h4>Domínio personalizado incluso</h4>
+          <p>Registro do seu domínio próprio (www.seunome.com.br) já incluso no valor — sem custos adicionais para ter seu endereço profissional na internet.</p>
+        </div>
+      </div>
+      <div class="inc-card">
+        <div class="inc-icon">🚀</div>
+        <div class="inc-txt">
+          <h4>Hospedagem e publicação</h4>
+          <p>Configuração completa da hospedagem com certificado SSL (https), e publicação do site para acesso público com segurança e velocidade.</p>
+        </div>
+      </div>
+      <div class="inc-card">
+        <div class="inc-icon">🔧</div>
+        <div class="inc-txt">
+          <h4>Manutenção mensal</h4>
+          <p>R$ 100/mês garante o site funcionando e com suas informações sempre atualizadas — fotos, textos, horários.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nota CFP -->
+    <div class="cfp-box" style="margin-top:32px;">
+      <div class="icon">🛡️</div>
+      <p><strong>Conformidade com o Código de Ética do CFP:</strong> a divulgação de serviços psicológicos é regulamentada pelo Conselho Federal de Psicologia. Produzimos todo o conteúdo respeitando essas diretrizes — Você pode divulgar seu trabalho com segurança.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divisor">
+
+<!-- PORTFÓLIO -->
+<section id="portfolio" class="sec sec-dark">
+  <div class="sec-inner">
+    <div class="sh"><span class="sh-n">02</span><h2 class="sh-t">Nossas produções</h2></div>
+    <p style="font-size:14.5px;font-weight:300;color:var(--ts);max-width:600px;line-height:1.8;margin-bottom:36px;">Sites criados pela Agência Ângelo para profissionais da saúde — exemplos reais do que produzimos para psicólogos e médicos.</p>
+
+    <p style="font-family:'Playfair Display',serif;font-size:12px;font-style:italic;color:rgba(255,255,255,0.28);letter-spacing:0.1em;margin-bottom:14px;">Para psicólogos</p>
+    <div class="port-grid" style="margin-bottom:28px;">
+      <div class="port-card">
+        <div class="port-bar">
+          <div class="port-dots"><span></span><span></span><span></span></div>
+          <div class="port-url">anaflaviapsicologa.com.br</div>
+        </div>
+        <div class="port-body">
+          <h4>Ana Flávia de Lima Ângelo</h4>
+          <p>Psicólogo infantil · Site completo com identidade visual, copywriting e domínio personalizado.</p>
+          <a href="https://anaflaviapsicologa.com.br/" target="_blank" class="port-link">▶ Acessar site</a>
+        </div>
+      </div>
+      <div class="port-card">
+        <div class="port-bar">
+          <div class="port-dots"><span></span><span></span><span></span></div>
+          <div class="port-url">agenciaangelo.github.io/jardimdasemocoes</div>
+        </div>
+        <div class="port-body">
+          <h4>Clínica Jardim das Emoções</h4>
+          <p>Clínica de psicologia infantil · Landing page com tema lúdico, equipe e agendamento via WhatsApp.</p>
+          <a href="https://agenciaangelo.github.io/jardimdasemocoes/" target="_blank" class="port-link">▶ Acessar site</a>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-family:'Playfair Display',serif;font-size:12px;font-style:italic;color:rgba(255,255,255,0.28);letter-spacing:0.1em;margin-bottom:14px;">Na área médica</p>
+    <div class="port-grid">
+      <div class="port-card">
+        <div class="port-bar">
+          <div class="port-dots"><span></span><span></span><span></span></div>
+          <div class="port-url">dramonicamonttan.com.br</div>
+        </div>
+        <div class="port-body">
+          <h4>Dra. Monica Monttán</h4>
+          <p>Cirurgiã Vascular · Landing page com conformidade CFM, identidade profissional e copywriting especializado.</p>
+          <a href="https://dramonicamonttan.com.br/" target="_blank" class="port-link">▶ Acessar site</a>
+        </div>
+      </div>
+      <div class="port-card">
+        <div class="port-bar">
+          <div class="port-dots"><span></span><span></span><span></span></div>
+          <div class="port-url">agenciaangelo.github.io/dralvaro</div>
+        </div>
+        <div class="port-body">
+          <h4>Dr. Álvaro Faria</h4>
+          <p>Cirurgião Geral · Site com identidade visual, seção de especialidades e links de agendamento.</p>
+          <a href="https://agenciaangelo.github.io/dralvaro/" target="_blank" class="port-link">▶ Acessar site</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTIMENTO -->
+<section id="investimento" class="sec sec-dark3">
+  <div class="sec-inner">
+    <div class="sh"><span class="sh-n">03</span><h2 class="sh-t">Investimento</h2></div>
+
+    <!-- Site principal -->
+    <div class="inv-principal">
+      <div class="inv-principal-inner">
+        <div>
+          <div class="inv-badge">Produção do site</div>
+          <div class="inv-titulo">Site ou landing page<br><em>completo</em></div>
+          <div class="inv-desc">Design, copywriting, domínio, hospedagem e publicação — tudo incluso. Pagamento em duas etapas: 50% para iniciar e 50% ao aprovar a estrutura.</div>
+          <ul class="inv-ul">
+            <li>Estrutura e design exclusivo</li>
+            <li>Copywriting — textos do site</li>
+            <li>Conformidade com o CFP</li>
+            <li>Domínio www.seunome.com.br incluso</li>
+            <li>Hospedagem e publicação</li>
+            <li>Certificado SSL (https)</li>
+          </ul>
+        </div>
+        <div class="inv-price-col">
+          <div class="price-row pix">
+            <label>💰 Pix / Boleto / Cartão</label>
+            <div class="v"><sup>R$</sup>700</div>
+            <div class="obs">50% + 50% na aprovação · entrega em até 15 dias</div>
+          </div>
+          <div class="inv-ctas">
+            <a href="https://wa.me/5584991236489?text=Ol%C3%A1%2C+Adson%21+Tenho+interesse+no+site+para+psic%C3%B3logo+%28R%24+700%2C00%29." target="_blank" class="inv-cta">💬 Quero o site</a>
+            <a href="https://wa.me/5584991236489?text=Ol%C3%A1%2C+Adson%21+Tenho+interesse+no+site+%28R%24+700%29+mais+o+v%C3%ADdeo+de+lan%C3%A7amento+%28R%24+200%29+para+psic%C3%B3logo." target="_blank" class="inv-cta full">🎬 Quero o site + vídeo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensalidade -->
+    <div class="mensal-box">
+      <div>
+        <div class="mensal-badge">Manutenção mensal</div>
+        <h4>Site sempre atualizado</h4>
+        <p>Hospedagem, segurança e suporte para alterações de fotos, textos ou qualquer informação — sempre que precisar, sem custo adicional por chamado.</p>
+      </div>
+      <div class="mensal-preco">
+        <div class="v"><sup>R$</sup>100</div>
+        <div class="obs">por mês</div>
+      </div>
+    </div>
+
+    <!-- Adicional: vídeo de lançamento -->
+    <div class="video-box">
+      <div>
+        <div class="video-badge">Adicional opcional</div>
+        <h4>🎬 Vídeo de lançamento do site</h4>
+        <p>Um vídeo gravado e editado para divulgar o lançamento do seu site nas redes sociais — pode ser contratado junto com o site ou separadamente, a qualquer momento.</p>
+        <div class="video-ctas">
+          <a href="https://wa.me/5584991236489?text=Ol%C3%A1%2C+Adson%21+Tenho+interesse+no+v%C3%ADdeo+de+lan%C3%A7amento+do+site+%28R%24+200%2C00%29." target="_blank" class="video-cta solo">💬 Só o vídeo (R$ 200)</a>
+          <a href="https://wa.me/5584991236489?text=Ol%C3%A1%2C+Adson%21+Tenho+interesse+no+site+%28R%24+700%29+mais+o+v%C3%ADdeo+de+lan%C3%A7amento+%28R%24+200%29." target="_blank" class="video-cta combo">🎬 Site + vídeo (R$ 900)</a>
+        </div>
+      </div>
+      <div class="video-preco">
+        <div class="v"><sup>R$</sup>200</div>
+        <div class="obs" style="text-align:right;">gravação + edição</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESSO -->
+<section id="processo" class="sec sec-creme2">
+  <div class="sec-inner">
+    <div class="sh"><span class="sh-n">04</span><h2 class="sh-t">Como funciona</h2></div>
+    <div class="processo">
+      <div class="proc-row">
+        <div class="proc-dot">01</div>
+        <div class="proc-body">
+          <h3 class="proc-h">Briefing e pagamento inicial</h3>
+          <p class="proc-p">Após confirmar o interesse, fazemos uma conversa de briefing para entender sua abordagem, público e objetivos. Com os 50% iniciais confirmados, a produção começa imediatamente.</p>
+        </div>
+      </div>
+      <div class="proc-row">
+        <div class="proc-dot">02</div>
+        <div class="proc-body">
+          <h3 class="proc-h">Produção da estrutura e do design</h3>
+          <p class="proc-p">Desenvolvemos a estrutura completa do site — layout, seções, identidade visual e todos os elementos gráficos — com copywriting alinhado ao CFP.</p>
+        </div>
+      </div>
+      <div class="proc-row">
+        <div class="proc-dot">03</div>
+        <div class="proc-body">
+          <h3 class="proc-h">Aprovação da estrutura</h3>
+          <p class="proc-p">Você avalia e aprova a estrutura do site. Neste momento é feito o pagamento dos 50% restantes. Ajustes são bem-vindos antes da aprovação final.</p>
+        </div>
+      </div>
+      <div class="proc-row">
+        <div class="proc-dot">04</div>
+        <div class="proc-body">
+          <h3 class="proc-h">Publicação com domínio próprio</h3>
+          <p class="proc-p">Registramos seu domínio, configuramos a hospedagem com SSL e publicamos o site.</p>
+        </div>
+      </div>
+      <div class="proc-row" style="padding-bottom:0">
+        <div class="proc-dot">05</div>
+        <div class="proc-body">
+          <h3 class="proc-h">Manutenção contínua</h3>
+          <p class="proc-p">R$ 100/mês garante o site sempre funcionando e atualizado — qualquer alteração é feita pela agência sem custo adicional.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APRESENTAÇÃO DA AGÊNCIA -->
+<section class="sec sec-dark">
+  <div class="sec-inner">
+    <div class="sh"><span class="sh-n">05</span><h2 class="sh-t">Agência Ângelo</h2></div>
+    <div style="background:var(--dark3);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:36px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,var(--lj3,#C44D0E),var(--lj2));"></div>
+      <p style="font-size:15.5px;font-weight:300;color:rgba(255,255,255,0.62);line-height:1.9;margin-bottom:16px;">A <strong style="color:white;font-weight:500;">Agência Ângelo</strong> é uma agência de marketing digital focada em aumentar resultados de profissionais e empresas por meio de estratégias de marketing. Com mais 5 anos de atuação no mercado, já atendemos clientes de segmentos variados — de psicólogos a clínicas médicas, de empresas industriais a negócios locais.</p>
+      <p style="font-size:15.5px;font-weight:300;color:rgba(255,255,255,0.62);line-height:1.9;margin-bottom:16px;">A agência é liderada por <strong style="color:white;font-weight:500;">Adson Ângelo</strong>, graduado em Gestão de Marketing pela Uiversidade Norte do Paraná (UNOPAR) e com <strong style="color:white;font-weight:500;">MBA em Comunicação e Marketing pela Universidade de São Paulo (USP)</strong>. Na área da saúde e psicologia, toda a nossa atuação respeita as diretrizes do <strong style="color:white;font-weight:500;">Código de Ética do CFP</strong>, garantindo que a comunicação seja profissional, ética e eficaz.</p>
+      <p style="font-size:15.5px;font-weight:300;color:rgba(255,255,255,0.62);line-height:1.9;">Oferecemos serviços de gestão de redes sociais, produção de conteúdo, desenvolvimento de sites, identidade visual, tráfego pago e soluções integradas de marketing — sempre com foco em resultados reais para cada cliente.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;">
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:18px 22px;text-align:center;flex:1;min-width:120px;">
+          <span style="font-family:'Playfair Display',serif;font-size:34px;font-weight:700;color:var(--lj);display:block;line-height:1;">5</span>
+          <p style="font-size:12px;color:rgba(255,255,255,0.38);margin-top:4px;">anos de atuação</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:18px 22px;text-align:center;flex:1;min-width:120px;">
+          <span style="font-family:'Playfair Display',serif;font-size:34px;font-weight:700;color:var(--lj);display:block;line-height:1;">30+</span>
+          <p style="font-size:12px;color:rgba(255,255,255,0.38);margin-top:4px;">clientes atendidos</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:18px 22px;text-align:center;flex:1;min-width:120px;">
+          <span style="font-family:'Playfair Display',serif;font-size:34px;font-weight:700;color:var(--lj);display:block;line-height:1;">CFP</span>
+          <p style="font-size:12px;color:rgba(255,255,255,0.38);margin-top:4px;">conformidade garantida</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:18px 22px;text-align:center;flex:1;min-width:120px;">
+          <a href="https://instagram.com/aagenciaangelo" target="_blank" style="text-decoration:none;">
+            <span style="font-size:26px;display:block;line-height:1;margin-bottom:4px;">📸</span>
+            <p style="font-size:12px;color:var(--lj);margin-top:4px;">@aagenciaangelo</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-sec">
+  <div class="cta-inner">
+    <div>
+      <h2 class="cta-h">Pronto para ter<br>seu site <em>profissional?</em></h2>
+      <p class="cta-p">Me chame no WhatsApp, tiramos suas dúvidas e já começamos o briefing para criar o site que representa o seu trabalho.</p>
+    </div>
+    <a href="https://wa.me/5584991236489?text=Ol%C3%A1%2C+Adson%21+Tenho+interesse+no+site+para+psic%C3%B3logo." target="_blank" class="cta-btn">💬 Falar pelo WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-logo"><span>Agência</span> Ângelo</div>
+  <div class="ft-info">
+    Adson Ângelo · contato@agenciaangelo.com.br<br>
+    <a href="https://instagram.com/aagenciaangelo" target="_blank" style="color:var(--lj);text-decoration:none;">@aagenciaangelo</a><br>
+    Proposta válida por 7 dias · Marcos · Julho 2026
+  </div>
+</footer>
+
+</body>
+</html>
